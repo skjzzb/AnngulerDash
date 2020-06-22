@@ -1,0 +1,93 @@
+<!-- <div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort  style="width: 100%;">
+    <ng-container matColumnDef="id">
+      <th  mat-header-cell *matHeaderCellDef mat-sort-header>Id </th>
+      <td  mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="folderName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Folder Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.folderName}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="noCV">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> No of CV </th>
+      <td mat-cell *matCellDef="let element"> {{element.noCV}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="edit">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Edit</th>
+      <td mat-cell *matCellDef="let element"> 
+        <a href="#"  class="btn btn-primary ">
+          <span class="glyphicon glyphicon-edit"></span> Edit
+        </a>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Delete</th>
+      <td mat-cell *matCellDef="let element"> 
+        <a href="3"  class="btn btn-danger ">
+          <span class="glyphicon glyphicon-trash"></span> Trash
+        </a>
+      </td>
+    </ng-container>
+    
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator #paginator
+      [length]="dataSource?.data.length"
+      [pageIndex]="0"
+      [pageSize]="5"
+      [pageSizeOptions]="[10 ,5 ,25, 50, 100, 250]">
+  </mat-paginator>
+</div> -->
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">  
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+
+
+
+<div class="card main-card mb-3">
+  <div class="card-header">
+    CV Information Table  
+    <input class="form-control" type="search"  placeholder="Search" [(ngModel)]="serachHere">
+  </div>
+   
+  <div>
+    <table id="table_id" style="text-align: center; align-items: center;" class="table table-hover table-bordered table-striped " >
+      <thead style="text-align: center;">
+          <th style="text-align: center;" > Id</th>
+          <th style="text-align: center;">Folder Name</th>
+          <th style="text-align: center;">No of CV </th>
+          <th colspan="4" style="text-align: center;">Actions 
+            
+          </th>   
+      </thead>
+      <tbody>
+          <tr *ngFor="let item of cvInfo |filter:serachHere | paginate : { itemsPerPage : 5, currentPage : p}; let i = index" >
+                  <td>{{item.id}}</td>
+                  <td>{{item.folderName}}</td>
+                  <td>{{item.noCV}}</td>
+                  <td>
+                      <a href="#"  class="btn btn-primary ">
+                          <span class="glyphicon glyphicon-edit"></span> Edit
+                        </a>
+                     
+                  </td>
+                  <td>
+                      <a href="#"  class="btn btn-danger ">
+                          <span class="glyphicon glyphicon-trash"></span> Trash
+                        </a>
+                  </td>
+          </tr>
+      </tbody>
+  </table>
+  </div>
+</div>
+<pagination-controls style="text-align: right;" (pageChange)="p = $event"></pagination-controls>
+<script>
+    $(document).ready( function () {
+  $('#table_id').DataTable();
+} );
+</script>
